@@ -1,6 +1,10 @@
 package main
 
-import "net/http"
+import (
+	"encoding/json"
+	"log"
+	"net/http"
+)
 
 type person struct {
 	First string
@@ -41,7 +45,14 @@ func main() {
 }
 
 func encoderFunction(w http.ResponseWriter, r *http.Request) {
+	p1 := person{
+		First: "Nikhil",
+	}
 
+	err := json.NewEncoder(w).Encode(p1)
+	if err != nil {
+		log.Println("Got bad JSON", err)
+	}
 }
 
 func decoderFunction(w http.ResponseWriter, r *http.Request) {
